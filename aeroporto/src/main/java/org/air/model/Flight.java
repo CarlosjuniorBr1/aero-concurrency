@@ -13,7 +13,7 @@ public class Flight {
     public Flight(Integer id, Integer leftConnection, Integer rightConnection) {
         this.id = id;
         this.leftConnection = leftConnection;
-        this.rightConnection = rightConnection;k
+        this.rightConnection = rightConnection;
         this.status = FlightStatus.PREPARING;
     }
 

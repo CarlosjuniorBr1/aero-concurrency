@@ -8,8 +8,17 @@ public class DatabaseConnection {
 
     private final ReentrantLock lock;
 
-    public DatabaseConnection(int id, ReentrantLock lock) {
+    public DatabaseConnection(int id) {
         this.id = id;
-        this.lock = lock;
+        this.lock = new ReentrantLock();
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public ReentrantLock getLock() {
+        return lock;
+    }
+
 }

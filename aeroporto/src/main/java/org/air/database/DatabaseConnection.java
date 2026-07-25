@@ -17,6 +17,18 @@ public class DatabaseConnection {
         return id;
     }
 
+    public void lock() {
+        lock.lock();
+    }
+
+    public boolean tryLock() {
+        return lock.tryLock();
+    }
+
+    public void unlock() {
+        lock.unlock();
+    }
+
     public ReentrantLock getLock() {
         return lock;
     }

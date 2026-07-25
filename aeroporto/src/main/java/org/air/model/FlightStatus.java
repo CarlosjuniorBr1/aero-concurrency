@@ -1,4 +1,9 @@
 package org.air.model;
 
-public class FlightStatus {
+public enum FlightStatus {
+    PREPARING,
+    WAITING,
+    REGISTERING,
+    FINISHED
+
 }

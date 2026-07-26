@@ -1,11 +1,10 @@
 package org.air.experiment;
-import org.air.concurrency.FlightTask;
-import org.air.concurrency.SafeFlightStrategy;
-import org.air.concurrency.UnsafeFlightStrategy;
+import org.air.concurrency.*;
 import org.air.database.DatabasePool;
 import org.air.model.Flight;
 import org.air.monitor.SystemMonitor;
 import org.air.util.SharedStatistics;
+import org.air.util.SharedStatisticsSafe;
 import org.air.util.Timer;
 
 import java.util.ArrayList;
@@ -19,6 +18,10 @@ public class ExperimentRunner {
     public void run() {
 
         SharedStatistics.completedFlights = 0;
+        SharedStatisticsSafe.completedFlights.set(0);
+
+        FlightExecutionStrategy strategy =
+                new SafeAtomicFlightStrategy();
 
         DatabasePool pool = new DatabasePool(5);
 
@@ -52,7 +55,7 @@ public class ExperimentRunner {
 
                             pool,
 
-                            new SafeFlightStrategy()
+                            strategy
 
                     )
 
@@ -82,14 +85,19 @@ public class ExperimentRunner {
         double time = timer.stop();
 
         System.out.println();
-        System.out.println("===== RESULTADO =====");
-        System.out.println("Tempo: " + time + " s");
-        System.out.println("Voos registrados: " + SharedStatistics.completedFlights);
-        System.out.println("CPU: " + monitor.getCpuLoad() + "%");
-        System.out.println("Threads: " + monitor.getThreadCount());
-        System.out.println("Memória usada: " + monitor.getUsedMemory() / (1024 * 1024) + " MB");
-        System.out.println("Deadlock: " + monitor.hasDeadlock());
 
+        System.out.println("===== RESULTADO =====");
+
+        System.out.println("Tempo: " + time);
+
+        System.out.println("Deadlock: "
+                + monitor.hasDeadlock());
+
+        System.out.println("Unsafe Counter: "
+                + SharedStatistics.completedFlights);
+
+        System.out.println("Safe Counter: "
+                + SharedStatisticsSafe.completedFlights.get());
     }
 
 }

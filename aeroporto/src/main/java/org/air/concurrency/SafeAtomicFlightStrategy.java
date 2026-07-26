@@ -4,10 +4,11 @@ import org.air.database.DatabaseConnection;
 import org.air.database.DatabasePool;
 import org.air.model.Flight;
 import org.air.model.FlightStatus;
-import org.air.util.SharedStatistics;
+import org.air.util.Config;
 import org.air.util.SharedStatisticsSafe;
 
-public class SafeAtomicFlightStrategy implements  FlightExecutionStrategy{
+public class SafeAtomicFlightStrategy implements FlightExecutionStrategy {
+
     @Override
     public void execute(
             Flight flight,
@@ -20,7 +21,6 @@ public class SafeAtomicFlightStrategy implements  FlightExecutionStrategy{
         DatabaseConnection right =
                 pool.getConnection(flight.getRightConnection());
 
-        // Sempre pega primeiro o recurso de menor ID
         DatabaseConnection first;
         DatabaseConnection second;
 
@@ -36,33 +36,48 @@ public class SafeAtomicFlightStrategy implements  FlightExecutionStrategy{
 
             flight.setStatus(FlightStatus.WAITING);
 
-            System.out.println("Voo " + flight.getId()
-                    + " aguardando conexão " + first.getId());
+            if (Config.DEBUG) {
+                System.out.println("Voo " + flight.getId()
+                        + " aguardando conexão " + first.getId());
+            }
 
             first.lock();
 
-            System.out.println("Voo " + flight.getId()
-                    + " obteve conexão " + first.getId());
+            if (Config.DEBUG) {
+                System.out.println("Voo " + flight.getId()
+                        + " obteve conexão " + first.getId());
+            }
 
-            Thread.sleep(200);
+            if (Config.LOCK_DELAY_MS > 0) {
+                Thread.sleep(Config.LOCK_DELAY_MS);
+            }
 
-            System.out.println("Voo " + flight.getId()
-                    + " aguardando conexão " + second.getId());
+            if (Config.DEBUG) {
+                System.out.println("Voo " + flight.getId()
+                        + " aguardando conexão " + second.getId());
+            }
 
             second.lock();
 
-            System.out.println("Voo " + flight.getId()
-                    + " obteve conexão " + second.getId());
+            if (Config.DEBUG) {
+                System.out.println("Voo " + flight.getId()
+                        + " obteve conexão " + second.getId());
+            }
 
             flight.setStatus(FlightStatus.REGISTERING);
 
-            Thread.sleep(500);
+            if (Config.WORK_DELAY_MS > 0) {
+                Thread.sleep(Config.WORK_DELAY_MS);
+            }
 
             SharedStatisticsSafe.completedFlights.incrementAndGet();
-            System.out.println("Voo " + flight.getId()
-                    + " registrou a decolagem.");
 
             flight.setStatus(FlightStatus.FINISHED);
+
+            if (Config.DEBUG) {
+                System.out.println("Voo " + flight.getId()
+                        + " registrou a decolagem.");
+            }
 
         } finally {
 
@@ -77,4 +92,5 @@ public class SafeAtomicFlightStrategy implements  FlightExecutionStrategy{
         }
 
     }
+
 }

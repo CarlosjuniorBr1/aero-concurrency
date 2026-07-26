@@ -4,6 +4,7 @@ import org.air.database.DatabaseConnection;
 import org.air.database.DatabasePool;
 import org.air.model.Flight;
 import org.air.model.FlightStatus;
+import org.air.util.Config;
 import org.air.util.SharedStatistics;
 
 public class UnsafeFlightStrategy implements FlightExecutionStrategy {
@@ -24,35 +25,48 @@ public class UnsafeFlightStrategy implements FlightExecutionStrategy {
 
             flight.setStatus(FlightStatus.WAITING);
 
-            System.out.println("Voo " + flight.getId()
-                    + " aguardando conexão " + left.getId());
+            if (Config.DEBUG) {
+                System.out.println("Voo " + flight.getId()
+                        + " aguardando conexão " + left.getId());
+            }
 
             left.lock();
 
-            System.out.println("Voo " + flight.getId()
-                    + " obteve conexão " + left.getId());
+            if (Config.DEBUG) {
+                System.out.println("Voo " + flight.getId()
+                        + " obteve conexão " + left.getId());
+            }
 
-            Thread.sleep(200);
+            if (Config.LOCK_DELAY_MS > 0) {
+                Thread.sleep(Config.LOCK_DELAY_MS);
+            }
 
-            System.out.println("Voo " + flight.getId()
-                    + " aguardando conexão " + right.getId());
+            if (Config.DEBUG) {
+                System.out.println("Voo " + flight.getId()
+                        + " aguardando conexão " + right.getId());
+            }
 
             right.lock();
 
-            System.out.println("Voo " + flight.getId()
-                    + " obteve conexão " + right.getId());
+            if (Config.DEBUG) {
+                System.out.println("Voo " + flight.getId()
+                        + " obteve conexão " + right.getId());
+            }
 
             flight.setStatus(FlightStatus.REGISTERING);
 
-            Thread.sleep(500);
+            if (Config.WORK_DELAY_MS > 0) {
+                Thread.sleep(Config.WORK_DELAY_MS);
+            }
 
             SharedStatistics.completedFlights++;
 
             flight.setStatus(FlightStatus.FINISHED);
 
-            System.out.println("Voo "
-                    + flight.getId()
-                    + " registrou a decolagem.");
+            if (Config.DEBUG) {
+                System.out.println("Voo " + flight.getId()
+                        + " registrou a decolagem.");
+            }
 
         } finally {
 

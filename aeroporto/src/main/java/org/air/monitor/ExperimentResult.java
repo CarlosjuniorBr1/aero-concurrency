@@ -2,73 +2,63 @@ package org.air.monitor;
 
 public class ExperimentResult {
 
-    private double executionTime;
+    private final String strategy;
+    private final int operations;
+    private final double executionTime;
+    private final double opsPerSecond;
+    private final double cpu;
+    private final long memory;
+    private final boolean deadlock;
+    private final int unsafeCounter;
+    private final int safeCounter;
 
-    private double cpuLoad;
-
-    private long usedMemory;
-
-    private long maxMemory;
-
-    private double operationsPerSecond;
-
-    private boolean deadlock;
-
-    private boolean raceCondition;
-
-    public double getExecutionTime() {
-        return executionTime;
-    }
-
-    public void setExecutionTime(double executionTime) {
+    public ExperimentResult(
+            String strategy,
+            int operations,
+            double executionTime,
+            double opsPerSecond,
+            double cpu,
+            long memory,
+            boolean deadlock,
+            int unsafeCounter,
+            int safeCounter
+    ) {
+        this.strategy = strategy;
+        this.operations = operations;
         this.executionTime = executionTime;
-    }
-
-    public double getCpuLoad() {
-        return cpuLoad;
-    }
-
-    public void setCpuLoad(double cpuLoad) {
-        this.cpuLoad = cpuLoad;
-    }
-
-    public long getUsedMemory() {
-        return usedMemory;
-    }
-
-    public void setUsedMemory(long usedMemory) {
-        this.usedMemory = usedMemory;
-    }
-
-    public long getMaxMemory() {
-        return maxMemory;
-    }
-
-    public void setMaxMemory(long maxMemory) {
-        this.maxMemory = maxMemory;
-    }
-
-    public double getOperationsPerSecond() {
-        return operationsPerSecond;
-    }
-
-    public void setOperationsPerSecond(double operationsPerSecond) {
-        this.operationsPerSecond = operationsPerSecond;
-    }
-
-    public boolean isDeadlock() {
-        return deadlock;
-    }
-
-    public void setDeadlock(boolean deadlock) {
+        this.opsPerSecond = opsPerSecond;
+        this.cpu = cpu;
+        this.memory = memory;
         this.deadlock = deadlock;
+        this.unsafeCounter = unsafeCounter;
+        this.safeCounter = safeCounter;
     }
 
-    public boolean isRaceCondition() {
-        return raceCondition;
-    }
+    @Override
+    public String toString() {
 
-    public void setRaceCondition(boolean raceCondition) {
-        this.raceCondition = raceCondition;
+        return """
+                ================================
+                Estratégia : %s
+                Operações  : %d
+                Tempo (s)  : %.3f
+                Ops/s      : %.2f
+                CPU        : %.2f %%
+                Memória    : %.2f MB
+                Deadlock   : %s
+                Unsafe Cnt : %d
+                Safe Cnt   : %d
+                ================================
+                """.formatted(
+                strategy,
+                operations,
+                executionTime,
+                opsPerSecond,
+                cpu,
+                memory / 1024.0 / 1024.0,
+                deadlock,
+                unsafeCounter,
+                safeCounter
+        );
     }
 }

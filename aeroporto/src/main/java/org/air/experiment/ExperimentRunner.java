@@ -1,5 +1,6 @@
 package org.air.experiment;
 import org.air.concurrency.FlightTask;
+import org.air.concurrency.SafeFlightStrategy;
 import org.air.concurrency.UnsafeFlightStrategy;
 import org.air.database.DatabasePool;
 import org.air.model.Flight;
@@ -51,7 +52,7 @@ public class ExperimentRunner {
 
                             pool,
 
-                            new UnsafeFlightStrategy()
+                            new SafeFlightStrategy()
 
                     )
 

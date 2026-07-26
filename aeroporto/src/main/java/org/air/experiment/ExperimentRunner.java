@@ -1,5 +1,6 @@
 package org.air.experiment;
 import org.air.concurrency.FlightTask;
+import org.air.concurrency.UnsafeFlightStrategy;
 import org.air.database.DatabasePool;
 import org.air.model.Flight;
 import org.air.monitor.SystemMonitor;
@@ -43,7 +44,17 @@ public class ExperimentRunner {
         for (Flight flight : flights) {
 
             executor.submit(
-                    new FlightTask(flight, pool)
+
+                    new FlightTask(
+
+                            flight,
+
+                            pool,
+
+                            new UnsafeFlightStrategy()
+
+                    )
+
             );
 
         }

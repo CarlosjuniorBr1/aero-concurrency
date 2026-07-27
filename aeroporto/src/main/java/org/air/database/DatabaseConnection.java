@@ -5,7 +5,6 @@ import java.util.concurrent.locks.ReentrantLock;
 public class DatabaseConnection {
 
     private final int id;
-
     private final ReentrantLock lock;
 
     public DatabaseConnection(int id) {
@@ -21,8 +20,8 @@ public class DatabaseConnection {
         lock.lock();
     }
 
-    public boolean tryLock() {
-        return lock.tryLock();
+    public void lockInterruptibly() throws InterruptedException {
+        lock.lockInterruptibly();
     }
 
     public void unlock() {
@@ -32,5 +31,4 @@ public class DatabaseConnection {
     public ReentrantLock getLock() {
         return lock;
     }
-
 }

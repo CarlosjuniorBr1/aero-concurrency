@@ -30,7 +30,7 @@ public class UnsafeFlightStrategy implements FlightExecutionStrategy {
                         + " aguardando conexão " + left.getId());
             }
 
-            left.lock();
+            left.lockInterruptibly();
 
             if (Config.DEBUG) {
                 System.out.println("Voo " + flight.getId()
@@ -46,7 +46,7 @@ public class UnsafeFlightStrategy implements FlightExecutionStrategy {
                         + " aguardando conexão " + right.getId());
             }
 
-            right.lock();
+           right.lockInterruptibly();
 
             if (Config.DEBUG) {
                 System.out.println("Voo " + flight.getId()

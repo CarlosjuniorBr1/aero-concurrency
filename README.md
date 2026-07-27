@@ -112,8 +112,9 @@ Características:
 ## Estrutura do projeto
 
 ```text
-aeroporto/
-├── src/
+├── results/
+│   └── benchmark.csv
+src/
 │   ├── main/
 │   │   └── java/
 │   │       └── org/
@@ -143,8 +144,6 @@ aeroporto/
 │   │                   ├── SharedStatisticsSafe.java
 │   │                   └── Timer.java
 │   └── test/
-├── results/
-│   └── benchmark.csv
 ├── target/
 ├── .dockerignore
 ├── .gitignore

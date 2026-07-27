@@ -1,5 +1,7 @@
 # Aeroporto Concorrente
 
+Esta aplicação é um simulador de concorrência em Java que representa o processo de registro de decolagens em um aeroporto, no qual vários voos disputam simultaneamente conexões limitadas de banco de dados. O projeto adapta o problema clássico do Jantar dos Filósofos para demonstrar, na prática, conceitos como processos, threads, compartilhamento de recursos, exclusão mútua, deadlock, condição de corrida, operações atômicas, monitoramento de desempenho e containerização com Docker.
+
 Projeto acadêmico desenvolvido em **Java 17** para demonstrar conceitos de concorrência, sincronização, deadlock, condição de corrida, operações atômicas, monitoramento de recursos e containerização com Docker.
 
 O sistema utiliza o contexto de um aeroporto para representar uma adaptação do problema clássico do **Jantar dos Filósofos**:

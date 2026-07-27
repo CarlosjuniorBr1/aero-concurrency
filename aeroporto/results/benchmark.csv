@@ -1,0 +1,10 @@
+Strategy,Operations,ExecutionTime,OpsPerSecond,CPU,Memory,Deadlock,UnsafeCounter,SafeCounter
+UnsafeFlightStrategy,10000,30.013,333.19,0.00,28.44,true,130,0
+SafeFlightStrategy,10000,0.020,494916.59,48.15,32.39,false,9977,0
+SafeAtomicFlightStrategy,10000,0.011,930558.73,42.86,35.70,false,0,10000
+UnsafeFlightStrategy,100000,30.028,3330.26,0.04,53.59,true,203,0
+SafeFlightStrategy,100000,0.023,4398299.05,39.29,15.00,false,99978,0
+SafeAtomicFlightStrategy,100000,0.034,2942419.12,53.85,33.00,false,0,100000
+UnsafeFlightStrategy,1000000,30.359,32939.03,0.62,178.65,true,156,0
+SafeFlightStrategy,1000000,0.160,6263034.00,29.73,257.00,false,999950,0
+SafeAtomicFlightStrategy,1000000,0.218,4590191.45,41.49,242.29,false,0,1000000

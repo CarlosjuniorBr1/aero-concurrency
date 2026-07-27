@@ -21,8 +21,7 @@ public class ExperimentResult {
             long memory,
             boolean deadlock,
             int unsafeCounter,
-            int safeCounter
-    ) {
+            int safeCounter) {
         this.strategy = strategy;
         this.operations = operations;
         this.executionTime = executionTime;
@@ -32,6 +31,42 @@ public class ExperimentResult {
         this.deadlock = deadlock;
         this.unsafeCounter = unsafeCounter;
         this.safeCounter = safeCounter;
+    }
+
+    public String getStrategy() {
+        return strategy;
+    }
+
+    public int getOperations() {
+        return operations;
+    }
+
+    public double getExecutionTime() {
+        return executionTime;
+    }
+
+    public double getOpsPerSecond() {
+        return opsPerSecond;
+    }
+
+    public double getCpu() {
+        return cpu;
+    }
+
+    public long getMemory() {
+        return memory;
+    }
+
+    public boolean isDeadlock() {
+        return deadlock;
+    }
+
+    public int getUnsafeCounter() {
+        return unsafeCounter;
+    }
+
+    public int getSafeCounter() {
+        return safeCounter;
     }
 
     @Override
@@ -58,7 +93,7 @@ public class ExperimentResult {
                 memory / 1024.0 / 1024.0,
                 deadlock,
                 unsafeCounter,
-                safeCounter
-        );
+                safeCounter);
     }
+
 }

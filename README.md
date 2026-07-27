@@ -114,7 +114,7 @@ Características:
 ```text
 ├── results/
 │   └── benchmark.csv
-src/
+├──src/
 │   ├── main/
 │   │   └── java/
 │   │       └── org/
@@ -216,10 +216,8 @@ docker compose version
 
 ```bash
 git clone https://github.com/CarlosjuniorBr1/aero-concurrency
-cd aero-concurrency/aeroporto
+cd aero-concurrency
 ```
-
-Substitua `<URL_DO_REPOSITORIO>` pelo endereço real do projeto.
 
 É importante executar os comandos dentro da pasta que contém o arquivo `pom.xml`.
 
@@ -227,7 +225,7 @@ Substitua `<URL_DO_REPOSITORIO>` pelo endereço real do projeto.
 
 ## 2. Compilar com Maven
 
-Na pasta `aeroporto`, execute:
+Na pasta `aero-concurrency`, execute:
 
 ```bash
 mvn clean package
